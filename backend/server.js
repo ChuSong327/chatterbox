@@ -2,20 +2,25 @@ const createError = require("http-errors");
 const express = require("express");
 const path = require("path");
 const bodyParser = require("body-parser");
-
 const cookieParser = require("cookie-parser");
-
-const usersRouter = require("./routes/users");
 
 const app = express();
 
+//Use middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(bodyParser.json());
 
+//Import routers
+const usersRouter = require("./routes/users");
+const roomsRouter = require("./routes/rooms");
+const messagesRouter = require("./routes/messages");
+
 //routes
 app.use("/api/users", usersRouter);
+app.use("/api/rooms", roomsRouter);
+app.use("/api/messages", messagesRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
