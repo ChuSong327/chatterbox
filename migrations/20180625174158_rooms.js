@@ -4,7 +4,7 @@ exports.up = function(knex, Promise) {
       table.string("name").notNullable();
       table.integer("usercount");
       table.timestamps();
-  })
+  });
 };
 
 exports.down = function(knex, Promise) {

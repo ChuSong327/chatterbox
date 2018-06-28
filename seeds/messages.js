@@ -9,6 +9,13 @@ exports.seed = (knex, Promise) => {
                 user_id: 1
             },
             {
+                content: "What is the best approach to learn JavaScript?",
+                created_at: new Date(),
+                updated_at: new Date(),
+                room_id: 1,
+                user_id: 3
+            },
+            {
                 content: "I love Python!!",
                 created_at: new Date(),
                 updated_at: new Date(),
