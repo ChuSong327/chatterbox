@@ -2,7 +2,7 @@
 module.exports = {
   development: {
     client: 'postgresql',
-    connection:  "chatterbox"
+    connection:  "postgres://localhost/chatterbox"
   },
   // production: {
   //   client: 'postgresql',

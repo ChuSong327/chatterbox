@@ -10,11 +10,12 @@ router.get("/", (req, res) => {
     });
 });
 
-router.get("/:id", (req, res) => {
-    const id = req.params.id;
+router.get("/:room_id", (req, res) => {
+    const id = req.params.room_id;
+    console.log(req.params)
     knex("messages").select().where("room_id", id).then((messages) => {
         res.json(messages);
-    });
+    }).then();
 });
 
 module.exports = router;

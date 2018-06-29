@@ -3,8 +3,8 @@ exports.up = (knex, Promise) => {
       table.increments();
       table.text("content").notNullable();
       table.timestamps();
-      table.integer("room_id").notNullable();
-      table.integer("user_id").notNullable();
+      table.integer("room_id").unsigned().references("id").inTable("rooms");
+      table.integer("user_id").unsigned().references("id").inTable("users");
   })
 };
 
