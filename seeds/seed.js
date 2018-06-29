@@ -1,8 +1,8 @@
 const faker = require("faker");
 const BUILD_ROOM_NUM = 10;
-const BUILD_USER_NUM = 10;
-const BUILD_MESSAGE_NUM = 20;
-const BUILD_ROOM_USER_NUM = 20;
+const BUILD_USER_NUM = 20;
+const BUILD_MESSAGE_NUM = 100;
+const BUILD_ROOM_USER_NUM = 30;
 const { format } = require("react-phone-input-auto-format");
 
 const buildRoomSeed = knex => {
