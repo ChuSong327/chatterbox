@@ -12,7 +12,6 @@ router.get("/", (req, res) => {
 
 router.get("/:room_id", (req, res) => {
     const id = req.params.room_id;
-    console.log(req.params)
     knex("messages").select().where("room_id", id).then((messages) => {
         res.json(messages);
     }).then();
