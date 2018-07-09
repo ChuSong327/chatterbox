@@ -26,4 +26,24 @@ router.post("/signup", (req, res) => {
     });
 });
 
+//get user's rooms
+router.get("/getrooms/:user_id", (req, res) => {
+    const id = req.params.user_id;
+    const userRooms = [];
+
+    knex("room_user").select().where("user_id", id).then((rooms) => {
+       return Promise.all(
+            rooms.map(room => {
+                const room_id = room.room_id;
+                return knex("rooms").select().where("id", room_id).then((user_room) => {
+                    userRooms.push(...user_room);
+                });
+            })        
+        )
+    }).then(() => {
+        res.json(userRooms);
+    })
+    
+})
+
 module.exports = router;
