@@ -1,8 +1,8 @@
 const faker = require("faker");
 const BUILD_ROOM_NUM = 10;
-const BUILD_USER_NUM = 20;
+const BUILD_USER_NUM = 50;
 const BUILD_MESSAGE_NUM = 100;
-const BUILD_ROOM_USER_NUM = 30;
+const BUILD_ROOM_USER_NUM = 50;
 const { format } = require("react-phone-input-auto-format");
 
 const buildRoomSeed = knex => {
@@ -67,6 +67,19 @@ const buildRoomUserSeed = knex => {
     return res;
 };
 
+const buildUserFriendSeed = knex => {
+    let res = [];
+    for (let i = 0; i < BUILD_USER_NUM; i++) {
+        res.push(
+            knex("user_friend").insert({
+                user_id: Math.floor(Math.random() * BUILD_USER_NUM + 1),
+                friend_id: Math.floor(Math.random() * BUILD_ROOM_NUM + 1)
+            })
+        );
+    }
+    return res;
+};
+
 exports.seed = (knex, Promise)  => {
     return knex("rooms").del().then(() => {
         return Promise.all(buildRoomSeed(knex));
@@ -85,5 +98,10 @@ exports.seed = (knex, Promise)  => {
         return knex("room_user").del().then(() => {
             return Promise.all(buildRoomUserSeed(knex));
         });
-    });
+    })
+    .then(() => {
+        return knex("user_friend").del().then(() => {
+            return Promise.all(buildUserFriendSeed(knex));
+        })
+    })
 };
