@@ -30,7 +30,6 @@ router.post("/signup", (req, res) => {
 router.get("/getrooms/:user_id", (req, res) => {
     const id = req.params.user_id;
     const userRooms = [];
-
     knex("room_user").select().where("user_id", id).then((rooms) => {
        return Promise.all(
             rooms.map(room => {
@@ -43,7 +42,25 @@ router.get("/getrooms/:user_id", (req, res) => {
     }).then(() => {
         res.json(userRooms);
     })
-    
-})
+});
+
+//get user's friends list
+router.get("/getfriends/:user_id", (req, res) => {
+    const id = req.params.user_id;
+    const userFriends = [];
+    knex("user_friend").select().where("user_id", id).then((friends) => {
+        console.log("this is the friends:", friends);
+        return Promise.all(
+            friends.map(friend => {
+                const friend_id = friend.friend_id;
+                return knex("users").select().where("id", friend_id).then((user_friend) => {
+                    userFriends.push(...user_friend);
+                });
+            })
+        )
+    }).then(() => {
+        res.json(userFriends);
+    })
+});
 
 module.exports = router;
