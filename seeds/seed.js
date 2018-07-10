@@ -1,11 +1,28 @@
 const faker = require("faker");
-const BUILD_ROOM_NUM = 10;
+const BUILD_ROOM_NUM = 20;
 const BUILD_USER_NUM = 50;
 const BUILD_MESSAGE_NUM = 100;
 const BUILD_ROOM_USER_NUM = 50;
 const BUILD_USER_FRIEND_NUM = 100;
 
 const { format } = require("react-phone-input-auto-format");
+
+const images = [
+    "https://res.cloudinary.com/chu327/image/upload/v1531198651/royal-huahine-deep-overwater-bungalows_96679_mcpqga.jpg",
+    "https://res.cloudinary.com/chu327/image/upload/v1531200475/image4_nlruc0.jpg",
+    "https://res.cloudinary.com/chu327/image/upload/v1531200475/image9_odsvsw.jpg",
+    "https://res.cloudinary.com/chu327/image/upload/v1531200473/image6_c2y17a.jpg",
+    "https://res.cloudinary.com/chu327/image/upload/v1531200473/images0_ss8oze.jpg",
+    "https://res.cloudinary.com/chu327/image/upload/v1531200473/image1_vkscr8.jpg",
+    "https://res.cloudinary.com/chu327/image/upload/v1531200472/image8_cgsmav.jpg",
+    "https://res.cloudinary.com/chu327/image/upload/v1531200472/image3_h1of57.jpg",
+    "https://res.cloudinary.com/chu327/image/upload/v1531200472/image2_mjahsb.jpg",
+    "https://res.cloudinary.com/chu327/image/upload/v1531200472/image5_yzftql.jpg",
+    "https://res.cloudinary.com/chu327/image/upload/v1531200471/iamge7_z2hyv5.jpg",
+    "https://res.cloudinary.com/chu327/image/upload/v1531198651/royal-huahine-deep-overwater-bungalows_96679_mcpqga.jpg",
+];
+
+
 
 const buildRoomSeed = knex => {
     let res = [];
@@ -14,7 +31,8 @@ const buildRoomSeed = knex => {
             knex("rooms").insert({
                 name: faker.address.country(),
                 created_at: new Date(),
-                updated_at: new Date()
+                updated_at: new Date(),
+                imageUrl: images[Math.floor(Math.random() * 12)] 
             })
         );
     }
