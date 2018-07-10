@@ -7,6 +7,7 @@ exports.up = function(knex, Promise) {
       table.string("firstname");
       table.string("lastname");
       table.string("phone");
+      table.string("profile");
       table.timestamps();
   })
 };

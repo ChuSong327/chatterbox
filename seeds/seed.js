@@ -7,7 +7,7 @@ const BUILD_USER_FRIEND_NUM = 100;
 
 const { format } = require("react-phone-input-auto-format");
 
-const images = [
+const roomImages = [
     "https://res.cloudinary.com/chu327/image/upload/v1531198651/royal-huahine-deep-overwater-bungalows_96679_mcpqga.jpg",
     "https://res.cloudinary.com/chu327/image/upload/v1531200475/image4_nlruc0.jpg",
     "https://res.cloudinary.com/chu327/image/upload/v1531200475/image9_odsvsw.jpg",
@@ -22,6 +22,16 @@ const images = [
     "https://res.cloudinary.com/chu327/image/upload/v1531198651/royal-huahine-deep-overwater-bungalows_96679_mcpqga.jpg",
 ];
 
+const profilePics = [
+    "https://res.cloudinary.com/chu327/image/upload/v1531207587/ChatterBox-UserProfilePics/S1.jpg",
+    "https://res.cloudinary.com/chu327/image/upload/v1531207587/ChatterBox-UserProfilePics/S2.jpg",
+    "https://res.cloudinary.com/chu327/image/upload/v1531207586/ChatterBox-UserProfilePics/S3.jpg",
+    "https://res.cloudinary.com/chu327/image/upload/v1531207587/ChatterBox-UserProfilePics/S4.jpg",
+    "https://res.cloudinary.com/chu327/image/upload/v1531207586/ChatterBox-UserProfilePics/S5.jpg",
+    "https://res.cloudinary.com/chu327/image/upload/v1531207973/ChatterBox-UserProfilePics/S6.png",
+    "https://res.cloudinary.com/chu327/image/upload/v1531207973/ChatterBox-UserProfilePics/S7.jpg",
+    "https://res.cloudinary.com/chu327/image/upload/v1531207973/ChatterBox-UserProfilePics/S8.gif"
+];
 
 
 const buildRoomSeed = knex => {
@@ -32,7 +42,7 @@ const buildRoomSeed = knex => {
                 name: faker.address.country(),
                 created_at: new Date(),
                 updated_at: new Date(),
-                imageUrl: images[Math.floor(Math.random() * 12)] 
+                imageUrl: roomImages[Math.floor(Math.random() * 12)] 
             })
         );
     }
@@ -50,6 +60,7 @@ const buildUserSeed = knex => {
                 firstname: faker.name.firstName(),
                 lastname: faker.name.lastName(),
                 phone: format(faker.phone.phoneNumberFormat()),
+                profile: profilePics[Math.floor(Math.random() * 8)],
                 updated_at: new Date(),
                 created_at: new Date()
             })
