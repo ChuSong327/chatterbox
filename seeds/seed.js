@@ -3,6 +3,8 @@ const BUILD_ROOM_NUM = 10;
 const BUILD_USER_NUM = 50;
 const BUILD_MESSAGE_NUM = 100;
 const BUILD_ROOM_USER_NUM = 50;
+const BUILD_USER_FRIEND_NUM = 100;
+
 const { format } = require("react-phone-input-auto-format");
 
 const buildRoomSeed = knex => {
@@ -69,11 +71,11 @@ const buildRoomUserSeed = knex => {
 
 const buildUserFriendSeed = knex => {
     let res = [];
-    for (let i = 0; i < BUILD_USER_NUM; i++) {
+    for (let i = 0; i < BUILD_USER_FRIEND_NUM; i++) {
         res.push(
             knex("user_friend").insert({
                 user_id: Math.floor(Math.random() * BUILD_USER_NUM + 1),
-                friend_id: Math.floor(Math.random() * BUILD_ROOM_NUM + 1)
+                friend_id: Math.floor(Math.random() * BUILD_USER_NUM + 1)
             })
         );
     }
