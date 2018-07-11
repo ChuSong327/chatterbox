@@ -49,7 +49,6 @@ router.get("/getfriends/:user_id", (req, res) => {
     const id = req.params.user_id;
     const userFriends = [];
     knex("user_friend").select().where("user_id", id).then((friends) => {
-        console.log("this is the friends:", friends);
         return Promise.all(
             friends.map(friend => {
                 const friend_id = friend.friend_id;
@@ -60,6 +59,41 @@ router.get("/getfriends/:user_id", (req, res) => {
         )
     }).then(() => {
         res.json(userFriends);
+    })
+});
+
+//update user's information
+router.post("/updateuserinfo", (req, res) => {
+    console.log("this is the req.body: ", req.body);
+    const { 
+        id, 
+        username, 
+        firstname, 
+        lastname, 
+        email, 
+        phone, 
+        password, 
+        profile, 
+        updated_at
+    } = req.body;
+    knex("users").select().where("id", id).update({
+        id: id,
+        username: username,
+        firstname: firstname,
+        lastname: lastname,
+        email: email,
+        phone: phone,
+        password: password,
+        profile: profile,
+        updated_at: updated_at
+    })
+    .then(() => {
+        knex("users").select().where("id", id).then(user => {
+            res.json(user);
+        })
+    })
+    .catch(error => {
+        console.log("This is an error: ", error);
     })
 });
 
