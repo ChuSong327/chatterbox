@@ -1,9 +1,9 @@
 const faker = require("faker");
-const BUILD_ROOM_NUM = 20;
+const BUILD_ROOM_NUM = 30;
 const BUILD_USER_NUM = 50;
 const BUILD_MESSAGE_NUM = 100;
-const BUILD_ROOM_USER_NUM = 50;
-const BUILD_USER_FRIEND_NUM = 100;
+const BUILD_ROOM_USER_NUM = 200;
+const BUILD_USER_FRIEND_NUM = 200;
 
 const { format } = require("react-phone-input-auto-format");
 
@@ -73,7 +73,7 @@ const buildMessageSeed = knex => {
     let res = [];
     for (let i = 0; i < BUILD_MESSAGE_NUM; i++) {
         res.push(
-            knex("messages").insert({
+            knex("room_messages").insert({
                 content: faker.lorem.paragraph(),
                 room_id: Math.floor(Math.random() * BUILD_ROOM_NUM + 1),
                 user_id: Math.floor(Math.random() * BUILD_USER_NUM + 1),
@@ -121,7 +121,7 @@ exports.seed = (knex, Promise)  => {
         });
     })
     .then(() => {
-        return knex("messages").del().then(() => {
+        return knex("room_messages").del().then(() => {
             return Promise.all(buildMessageSeed(knex));
         });
     })
