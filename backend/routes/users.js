@@ -26,45 +26,16 @@ router.post("/signup", (req, res) => {
     });
 });
 
-//get user's rooms
-router.get("/getrooms/:user_id", (req, res) => {
+//retrieve user's info
+router.get("/retrieveuser/:user_id", (req, res) => {
     const id = req.params.user_id;
-    const userRooms = [];
-    knex("room_user").select().where("user_id", id).then((rooms) => {
-       return Promise.all(
-            rooms.map(room => {
-                const room_id = room.room_id;
-                return knex("rooms").select().where("id", room_id).then((user_room) => {
-                    userRooms.push(...user_room);
-                });
-            })        
-        )
-    }).then(() => {
-        res.json(userRooms);
-    })
-});
-
-//get user's friends list
-router.get("/getfriends/:user_id", (req, res) => {
-    const id = req.params.user_id;
-    const userFriends = [];
-    knex("user_friend").select().where("user_id", id).then((friends) => {
-        return Promise.all(
-            friends.map(friend => {
-                const friend_id = friend.friend_id;
-                return knex("users").select().where("id", friend_id).then((user_friend) => {
-                    userFriends.push(...user_friend);
-                });
-            })
-        )
-    }).then(() => {
-        res.json(userFriends);
+    knex("users").select().where("id", id).then(user => {
+        res.json(user);
     })
 });
 
 //update user's information
 router.post("/updateuserinfo", (req, res) => {
-    console.log("this is the req.body: ", req.body);
     const { 
         id, 
         username, 
@@ -89,11 +60,75 @@ router.post("/updateuserinfo", (req, res) => {
     })
     .then(() => {
         knex("users").select().where("id", id).then(user => {
+            console.log("GET HERE!!!")
             res.json(user);
         })
     })
     .catch(error => {
         console.log("This is an error: ", error);
+    })
+});
+
+//get user's friends list
+router.get("/getfriends/:user_id", (req, res) => {
+    const id = req.params.user_id;
+    const userFriends = [];
+    knex("user_friend").select().where("user_id", id).then((friends) => {
+        return Promise.all(
+            friends.map(friend => {
+                const friend_id = friend.friend_id;
+                return knex("users").select().where("id", friend_id).then((user_friend) => {
+                    userFriends.push(...user_friend);
+                });
+            })
+        )
+    }).then(() => {
+        res.json(userFriends);
+    })
+});
+
+//delete friends
+router.post("/deletefriends", (req, res) => {
+    const { user_id } = req.body;
+    const { friend_id } = req.body;
+    const userFriends = [];
+    knex("user_friend").select()
+    .where({ 
+        "user_id": user_id, 
+        "friend_id": friend_id 
+    })
+    .del()
+    .then(() => {
+        knex("user_friend").select().where("user_id", user_id).then((friends) => {
+            return Promise.all(
+                friends.map(friend => {
+                    const friend_id = friend.friend_id;
+                    return knex("users").select().where("id", friend_id).then((user_friend) => {
+                        userFriends.push(...user_friend);
+                    });
+                })
+            )
+        }).then(() => {
+            res.json(userFriends);
+        })
+    })
+});
+
+//get user's rooms
+router.get("/getrooms/:user_id", (req, res) => {
+    const id = req.params.user_id;
+    const userRooms = [];
+    knex("room_user").select().where("user_id", id).then((rooms) => {
+       return Promise.all(
+            rooms.map(room => {
+                const room_id = room.room_id;
+                return knex("rooms").select().where("id", room_id).then((user_room) => {
+                    userRooms.push(...user_room);
+                });
+            })        
+        )
+    }).then(() => {
+        res.json(userRooms);
     })
 });
 
