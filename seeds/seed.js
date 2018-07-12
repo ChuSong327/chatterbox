@@ -1,7 +1,7 @@
 const faker = require("faker");
 const BUILD_ROOM_NUM = 30;
 const BUILD_USER_NUM = 50;
-const BUILD_MESSAGE_NUM = 100;
+const BUILD_MESSAGE_NUM = 500;
 const BUILD_ROOM_USER_NUM = 200;
 const BUILD_USER_FRIEND_NUM = 200;
 
