@@ -41,5 +41,26 @@ router.get("/getroommessages/:room_id", (req, res) => {
     }).then(() => {
         res.json(response);
     })
-})
+});
+
+//post user's messages in current room
+router.post("/postroommessages", (req, res) => {
+    const { user_id, room_id, content, created_at } = req.body;
+    let response = [];
+    knex("room_messages").insert(req.body).then(() => {
+        knex("room_messages").select().where("room_id", room_id).then((messages) => {
+            return Promise.all(
+                messages.map(message => {
+                    return knex("users").select().where("id", user_id).then(user => {
+                        response.push({content: message, user: user});
+                    });
+                })
+            );
+        }).then(() => {
+            console.log("this is the response: ", response);
+            res.json(response);
+        })
+    })
+});
+        
 module.exports = router;
