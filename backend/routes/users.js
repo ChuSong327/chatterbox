@@ -92,7 +92,8 @@ router.post("/deletefriends", (req, res) => {
     const { user_id } = req.body;
     const { friend_id } = req.body;
     const userFriends = [];
-    knex("user_friend").select()
+    knex("user_friend")
+    .select()
     .where({ 
         "user_id": user_id, 
         "friend_id": friend_id 
@@ -113,6 +114,29 @@ router.post("/deletefriends", (req, res) => {
         })
     })
 });
+
+//add friends
+router.post("/addfriends", (req, res) => {
+    const { friend_id, user_id } = req.body;
+    const userFriends = [];
+    knex("user_friend")
+    .insert(req.body)
+    .then(() => {
+        knex("user_friend").select().where("user_id", user_id).then(friends => {
+            return Promise.all(
+                friends.map(friend => {
+                    const friend_id = friend.friend_id;
+                    return knex("users").select().where("id", friend_id).then(user_friend => {
+                        userFriends.push(...user_friend);
+                    });
+                })
+            )   
+        }).then(() => {
+            console.log(userFriends)
+            res.json(userFriends);
+        })
+    })
+})
 
 //get user's rooms
 router.get("/getrooms/:user_id", (req, res) => {
