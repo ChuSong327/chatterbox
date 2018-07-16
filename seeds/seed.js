@@ -1,9 +1,9 @@
 const faker = require("faker");
 const BUILD_ROOM_NUM = 30;
-const BUILD_USER_NUM = 50;
+const BUILD_USER_NUM = 100;
 const BUILD_MESSAGE_NUM = 500;
-const BUILD_ROOM_USER_NUM = 200;
-const BUILD_USER_FRIEND_NUM = 200;
+const BUILD_ROOM_USER_NUM = 500;
+const BUILD_USER_FRIEND_NUM = 500;
 
 const { format } = require("react-phone-input-auto-format");
 
@@ -20,6 +20,7 @@ const roomImages = [
     "https://res.cloudinary.com/chu327/image/upload/v1531200472/image5_yzftql.jpg",
     "https://res.cloudinary.com/chu327/image/upload/v1531200471/iamge7_z2hyv5.jpg",
     "https://res.cloudinary.com/chu327/image/upload/v1531198651/royal-huahine-deep-overwater-bungalows_96679_mcpqga.jpg",
+    "https://res.cloudinary.com/chu327/image/upload/v1531617274/ChatterBox-UserProfilePics/p2.jpg"
 ];
 
 const profilePics = [
@@ -30,7 +31,12 @@ const profilePics = [
     "https://res.cloudinary.com/chu327/image/upload/v1531207586/ChatterBox-UserProfilePics/S5.jpg",
     "https://res.cloudinary.com/chu327/image/upload/v1531207973/ChatterBox-UserProfilePics/S6.png",
     "https://res.cloudinary.com/chu327/image/upload/v1531207973/ChatterBox-UserProfilePics/S7.jpg",
-    "https://res.cloudinary.com/chu327/image/upload/v1531207973/ChatterBox-UserProfilePics/S8.gif"
+    "https://res.cloudinary.com/chu327/image/upload/v1531207973/ChatterBox-UserProfilePics/S8.gif",
+    "https://res.cloudinary.com/chu327/image/upload/v1531617140/ChatterBox-UserProfilePics/i1.jpg",
+    "https://res.cloudinary.com/chu327/image/upload/v1531617139/ChatterBox-UserProfilePics/I2.jpg",
+    "https://res.cloudinary.com/chu327/image/upload/v1531617140/ChatterBox-UserProfilePics/i3.jpg",
+    "https://res.cloudinary.com/chu327/image/upload/v1531617140/ChatterBox-UserProfilePics/i5.jpg",
+    "https://res.cloudinary.com/chu327/image/upload/v1531617140/ChatterBox-UserProfilePics/i6.jpg"
 ];
 
 
@@ -60,7 +66,7 @@ const buildUserSeed = knex => {
                 firstname: faker.name.firstName(),
                 lastname: faker.name.lastName(),
                 phone: format(faker.phone.phoneNumberFormat()),
-                profile: profilePics[Math.floor(Math.random() * 8)],
+                profile: profilePics[Math.floor(Math.random() * 13)],
                 updated_at: new Date(),
                 created_at: new Date()
             })
