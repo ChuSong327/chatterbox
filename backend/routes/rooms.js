@@ -41,7 +41,6 @@ router.post("/postroommessages", (req, res) => {
     const { room_id, content, created_at } = req.body;
     let response = [];
     knex("room_messages").insert(req.body).then(() => {
-        console.log("this is the req body: ", req.body)
         knex("room_messages").select().where("room_id", room_id).then((messages) => {
             return Promise.all(
                 messages.map(message => {

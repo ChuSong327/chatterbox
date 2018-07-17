@@ -60,7 +60,6 @@ router.post("/updateuserinfo", (req, res) => {
     })
     .then(() => {
         knex("users").select().where("id", id).then(user => {
-            console.log("GET HERE!!!")
             res.json(user);
         })
     })
@@ -178,7 +177,6 @@ router.post("/joinroom", (req, res) => {
 
 //remove a chatroom
 router.post("/removeroom", (req, res) => {
-    console.log("this is the req.body: ", req.body);
     const { user_id, room_id } = req.body;
     const userRooms = [];
     knex("room_user")
