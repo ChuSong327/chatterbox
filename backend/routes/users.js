@@ -89,8 +89,7 @@ router.get("/getfriends/:user_id", (req, res) => {
 
 //delete friends
 router.post("/deletefriends", (req, res) => {
-    const { user_id } = req.body;
-    const { friend_id } = req.body;
+    const { user_id, friend_id } = req.body;
     const userFriends = [];
     knex("user_friend")
     .select()
@@ -132,7 +131,6 @@ router.post("/addfriends", (req, res) => {
                 })
             )   
         }).then(() => {
-            console.log(userFriends)
             res.json(userFriends);
         })
     })
@@ -141,7 +139,7 @@ router.post("/addfriends", (req, res) => {
 //get user's rooms
 router.get("/getrooms/:user_id", (req, res) => {
     const id = req.params.user_id;
-    const userRooms = [];
+    let userRooms = [];
     knex("room_user").select().where("user_id", id).then((rooms) => {
        return Promise.all(
             rooms.map(room => {
@@ -153,6 +151,56 @@ router.get("/getrooms/:user_id", (req, res) => {
         )
     }).then(() => {
         res.json(userRooms);
+    })
+});
+
+//join a new chatroom
+router.post("/joinroom", (req, res) => {
+    const { user_id } = req.body;
+    let userRooms = [];
+    knex("room_user")
+    .insert(req.body)
+    .then(() => {
+        knex("room_user").select().where("user_id", user_id).then(rooms => {
+            return Promise.all(
+                rooms.map(room => {
+                    const room_id = room.room_id;
+                    return knex("rooms").select().where("id", room_id).then((user_room) => {
+                        userRooms.push(...user_room);
+                    });
+                })
+            )
+        })
+    }).then(() => {
+        res.json(userRooms);
+    })
+});
+
+//remove a chatroom
+router.post("/removeroom", (req, res) => {
+    console.log("this is the req.body: ", req.body);
+    const { user_id, room_id } = req.body;
+    const userRooms = [];
+    knex("room_user")
+    .select()
+    .where({
+        "user_id": user_id,
+        "room_id": room_id
+    })
+    .del()
+    .then(() => {
+        knex("room_user").select().where("user_id", user_id).then(rooms => {
+            return Promise.all(
+                rooms.map(room => {
+                    const room_id = room.room_id;
+                    return knex("rooms").select().where("id", room_id).then(user_room => {
+                        userRooms.push(...user_room);
+                    })
+                })
+            );
+        }).then(() => {
+            res.json(userRooms);
+        })
     })
 });
 
