@@ -15,6 +15,7 @@ router.get('/', (req, res) => {
 
 //sign in
 router.post('/signin', (req, res) => {
+    console.log("this is the request: ", req)
     knex("users")
     .select()
     .where("username", req.body.usernameEmail)

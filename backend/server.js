@@ -1,5 +1,6 @@
 const createError = require("http-errors");
 const path = require("path");
+const cors = require("cors");
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const express = require("express");
@@ -13,6 +14,14 @@ app.use(express.urlencoded({
 }));
 app.use(cookieParser());
 app.use(bodyParser.json());
+
+//CORS
+const corsOptions = {
+  origin: "https://chattersquare.herokuapp.com",
+  optionSuccessStatus: 200
+};
+
+app.options("/", cors(corsOptions));
 
 //Import routers
 const usersRouter = require("./routes/users");
