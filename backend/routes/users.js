@@ -173,7 +173,7 @@ router.get("/getrooms/:user_id", cors(corsOptions), (req, res) => {
 });
 
 //join a new chatroom
-// router.options("/joinroom", cors(corsOptions));
+router.options("/joinroom", cors(corsOptions));
 router.post("/joinroom", cors(corsOptions),(req, res) => {
     const { user_id } = req.body;
     let userRooms = [];
