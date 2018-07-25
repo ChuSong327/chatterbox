@@ -24,13 +24,6 @@ app.use("/api/users", usersRouter);
 app.use("/api/rooms", roomsRouter);
 app.use("/api/messages", messagesRouter);
 
-//CORS
-app.use((req,res, next) => {
-  res.header("Access-Control-Allow-Origin", "http://chattersquare.herokuapp.com/");
-  res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
-  next();
-})
-
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));

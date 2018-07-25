@@ -5,7 +5,12 @@ let router = express.Router();
 
 router.get('/', (req, res) => {
     knex("users").select().then((users) => {
-        console.log("this is the response: ",res)
+        res.set({
+            headers: {
+                "Access-Control-Allow-Origin": "https://chattersquarebackend.herokuapp.com/",
+                "Access-Control-Allow-Methods": "POST, GET, PUT, DELETE "
+            }
+        });
         res.json(users);
     });
 });
@@ -17,6 +22,12 @@ router.post('/signin', (req, res) => {
     .where("username", req.body.usernameEmail)
     .orWhere("email", req.body.usernameEmail)
     .then((user) => {
+        res.set({
+            headers: {
+                "Access-Control-Allow-Origin": "https://chattersquarebackend.herokuapp.com/",
+                "Access-Control-Allow-Methods": "POST, GET, PUT, DELETE "
+            }
+        });
         res.json(user);
     });
 });
@@ -26,6 +37,12 @@ router.post("/signup", (req, res) => {
     knex("users").insert(req.body)
     .then(() => {
         knex("users").select().where("username", req.body.username).then((user) => {
+            res.set({
+                headers: {
+                    "Access-Control-Allow-Origin": "https://chattersquarebackend.herokuapp.com/",
+                    "Access-Control-Allow-Methods": "POST, GET, PUT, DELETE "
+                }
+            });
             res.json(user);
         })
     });
@@ -35,6 +52,12 @@ router.post("/signup", (req, res) => {
 router.get("/retrieveuser/:user_id", (req, res) => {
     const id = req.params.user_id;
     knex("users").select().where("id", id).then(user => {
+        res.set({
+            headers: {
+                "Access-Control-Allow-Origin": "https://chattersquarebackend.herokuapp.com/",
+                "Access-Control-Allow-Methods": "POST, GET, PUT, DELETE "
+            }
+        });
         res.json(user);
     })
 });
@@ -65,6 +88,12 @@ router.post("/updateuserinfo", (req, res) => {
     })
     .then(() => {
         knex("users").select().where("id", id).then(user => {
+            res.set({
+                headers: {
+                    "Access-Control-Allow-Origin": "https://chattersquarebackend.herokuapp.com/",
+                    "Access-Control-Allow-Methods": "POST, GET, PUT, DELETE "
+                }
+            });
             res.json(user);
         })
     })
@@ -87,6 +116,12 @@ router.get("/getfriends/:user_id", (req, res) => {
             })
         )
     }).then(() => {
+        res.set({
+            headers: {
+                "Access-Control-Allow-Origin": "https://chattersquarebackend.herokuapp.com/",
+                "Access-Control-Allow-Methods": "POST, GET, PUT, DELETE "
+            }
+        });
         res.json(userFriends);
     })
 });
@@ -113,6 +148,12 @@ router.post("/deletefriends", (req, res) => {
                 })
             )
         }).then(() => {
+            res.set({
+                headers: {
+                    "Access-Control-Allow-Origin": "https://chattersquarebackend.herokuapp.com/",
+                    "Access-Control-Allow-Methods": "POST, GET, PUT, DELETE "
+                }
+            });
             res.json(userFriends);
         })
     })
@@ -135,6 +176,12 @@ router.post("/addfriends", (req, res) => {
                 })
             )   
         }).then(() => {
+            res.set({
+                headers: {
+                    "Access-Control-Allow-Origin": "https://chattersquarebackend.herokuapp.com/",
+                    "Access-Control-Allow-Methods": "POST, GET, PUT, DELETE "
+                }
+            });
             res.json(userFriends);
         })
     })
@@ -154,6 +201,12 @@ router.get("/getrooms/:user_id", (req, res) => {
             })        
         )
     }).then(() => {
+        res.set({
+            headers: {
+                "Access-Control-Allow-Origin": "https://chattersquarebackend.herokuapp.com/",
+                "Access-Control-Allow-Methods": "POST, GET, PUT, DELETE "
+            }
+        });
         res.json(userRooms);
     })
 });
@@ -176,6 +229,12 @@ router.post("/joinroom", (req, res) => {
             )
         })
     }).then(() => {
+        res.set({
+            headers: {
+                "Access-Control-Allow-Origin": "https://chattersquarebackend.herokuapp.com/",
+                "Access-Control-Allow-Methods": "POST, GET, PUT, DELETE "
+            }
+        });
         res.json(userRooms);
     })
 });
@@ -202,6 +261,12 @@ router.post("/removeroom", (req, res) => {
                 })
             );
         }).then(() => {
+            res.set({
+                headers: {
+                    "Access-Control-Allow-Origin": "https://chattersquarebackend.herokuapp.com/",
+                    "Access-Control-Allow-Methods": "POST, GET, PUT, DELETE "
+                }
+            });
             res.json(userRooms);
         })
     })
