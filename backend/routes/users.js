@@ -5,13 +5,18 @@ let router = express.Router();
 
 router.get('/', (req, res) => {
     knex("users").select().then((users) => {
+        console.log("this is the response: ",res)
         res.json(users);
     });
 });
 
 //sign in
 router.post('/signin', (req, res) => {
-    knex("users").select().where("username", req.body.usernameEmail).orWhere("email", req.body.usernameEmail).then((user) => {
+    knex("users")
+    .select()
+    .where("username", req.body.usernameEmail)
+    .orWhere("email", req.body.usernameEmail)
+    .then((user) => {
         res.json(user);
     });
 });
