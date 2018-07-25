@@ -5,6 +5,10 @@ let router = express.Router();
 
 router.get("/", (req, res) => {
     knex("messages").select().then((messages) => {
+        res.set({
+            "Access-Control-Allow-Origin": "https://chattersquarebackend.herokuapp.com/",
+            "Access-Control-Allow-Methods": "POST, GET, PUT, DELETE "
+        });
         res.json(messages);
     })
 });
