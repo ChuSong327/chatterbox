@@ -1,7 +1,12 @@
 const express = require("express");
+const cors = require("cors");
 const knex = require("../../db/knex");
 
 let router = express.Router();
+const corsOptions = {
+    origin: "https://chattersquare.herokuapp.com",
+    optionSuccessStatus: 200
+  };
 
 router.get('/', (req, res) => {
     knex("users").select().then((users) => {
@@ -14,17 +19,18 @@ router.get('/', (req, res) => {
 });
 
 //sign in
-router.post('/signin', (req, res) => {
-    console.log("this is the request: ", req)
+router.options("/signin", cors(corsOptions));
+router.post('/signin', cors(corsOptions), (req, res) => {
+    // console.log("this is the request: ", req)
     knex("users")
     .select()
     .where("username", req.body.usernameEmail)
     .orWhere("email", req.body.usernameEmail)
     .then((user) => {
-        res.set({
-            "Access-Control-Allow-Origin": "*",
-            "Access-Control-Allow-Methods": "POST, GET, PUT, DELETE, OPTIONS "
-        });
+        // res.set({
+        //     "Access-Control-Allow-Origin": "*",
+        //     "Access-Control-Allow-Methods": "POST, GET, PUT, DELETE, OPTIONS "
+        // });
         res.json(user);
     });
 });
