@@ -6,7 +6,7 @@ let router = express.Router();
 router.get('/', (req, res) => {
     knex("users").select().then((users) => {
         res.set({
-            "Access-Control-Allow-Origin": "https://chattersquare.herokuapp.com/",
+            "Access-Control-Allow-Origin": "https://chattersquare.herokuapp.com",
             "Access-Control-Allow-Methods": "POST, GET, PUT, DELETE, OPTIONS "
         });
         res.json(users);
@@ -21,8 +21,8 @@ router.post('/signin', (req, res) => {
     .orWhere("email", req.body.usernameEmail)
     .then((user) => {
         res.set({
-            "Access-Control-Allow-Origin": "https://chattersquare.herokuapp.com/",
-            "Access-Control-Allow-Methods": "POST, GET, PUT, DELETE "
+            "Access-Control-Allow-Origin": "https://chattersquare.herokuapp.com",
+            "Access-Control-Allow-Methods": "POST, GET, PUT, DELETE, OPTIONS "
         });
         res.json(user);
     });
