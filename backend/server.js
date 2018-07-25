@@ -15,13 +15,13 @@ app.use(express.urlencoded({
 app.use(cookieParser());
 app.use(bodyParser.json());
 
-//CORS
-const corsOptions = {
-  origin: "https://chattersquare.herokuapp.com",
-  optionSuccessStatus: 200
-};
+// //CORS
+// const corsOptions = {
+//   origin: "https://chattersquare.herokuapp.com",
+//   optionSuccessStatus: 200
+// };
 
-app.options("/", cors(corsOptions));
+// app.options("/", cors(corsOptions));
 
 //Import routers
 const usersRouter = require("./routes/users");

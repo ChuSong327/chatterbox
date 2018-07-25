@@ -3,17 +3,14 @@ const cors = require("cors");
 const knex = require("../../db/knex");
 
 let router = express.Router();
+
 const corsOptions = {
     origin: "https://chattersquare.herokuapp.com",
     optionSuccessStatus: 200
-  };
+};
 
 router.get('/', (req, res) => {
     knex("users").select().then((users) => {
-        res.set({
-            "Access-Control-Allow-Origin": "https://chattersquare.herokuapp.com",
-            "Access-Control-Allow-Methods": "POST, GET, PUT, DELETE, OPTIONS "
-        });
         res.json(users);
     });
 });
@@ -21,48 +18,38 @@ router.get('/', (req, res) => {
 //sign in
 router.options("/signin", cors(corsOptions));
 router.post('/signin', cors(corsOptions), (req, res) => {
-    // console.log("this is the request: ", req)
     knex("users")
     .select()
     .where("username", req.body.usernameEmail)
     .orWhere("email", req.body.usernameEmail)
     .then((user) => {
-        // res.set({
-        //     "Access-Control-Allow-Origin": "*",
-        //     "Access-Control-Allow-Methods": "POST, GET, PUT, DELETE, OPTIONS "
-        // });
         res.json(user);
     });
 });
 
 //sign up
-router.post("/signup", (req, res) => {
+router.options("/signup", cors(corsOptions));
+router.post("/signup", cors(corsOptions), (req, res) => {
     knex("users").insert(req.body)
     .then(() => {
         knex("users").select().where("username", req.body.username).then((user) => {
-            res.set({
-                "Access-Control-Allow-Origin": "https://chattersquare.herokuapp.com/",
-                "Access-Control-Allow-Methods": "POST, GET, PUT, DELETE "
-            });
             res.json(user);
         })
     });
 });
 
 //retrieve user's info
-router.get("/retrieveuser/:user_id", (req, res) => {
+router.options("/retrieveuser/:user_id", cors(corsOptions));
+router.get("/retrieveuser/:user_id", cors(corsOptions), (req, res) => {
     const id = req.params.user_id;
     knex("users").select().where("id", id).then(user => {
-        res.set({
-            "Access-Control-Allow-Origin": "https://chattersquare.herokuapp.com/",
-            "Access-Control-Allow-Methods": "POST, GET, PUT, DELETE "
-        });
         res.json(user);
     })
 });
 
 //update user's information
-router.post("/updateuserinfo", (req, res) => {
+router.options("/updateuserinfo", cors(corsOptions));
+router.post("/updateuserinfo", cors(corsOptions), (req, res) => {
     const { 
         id, 
         username, 
@@ -87,10 +74,6 @@ router.post("/updateuserinfo", (req, res) => {
     })
     .then(() => {
         knex("users").select().where("id", id).then(user => {
-            res.set({
-                "Access-Control-Allow-Origin": "https://chattersquare.herokuapp.com/",
-                "Access-Control-Allow-Methods": "POST, GET, PUT, DELETE "
-            });
             res.json(user);
         })
     })
@@ -100,7 +83,8 @@ router.post("/updateuserinfo", (req, res) => {
 });
 
 //get user's friends list
-router.get("/getfriends/:user_id", (req, res) => {
+router.options("/getfriends/:user_id", cors(corsOptions));
+router.get("/getfriends/:user_id", cors(corsOptions), (req, res) => {
     const id = req.params.user_id;
     const userFriends = [];
     knex("user_friend").select().where("user_id", id).then((friends) => {
@@ -113,16 +97,13 @@ router.get("/getfriends/:user_id", (req, res) => {
             })
         )
     }).then(() => {
-        res.set({
-            "Access-Control-Allow-Origin": "https://chattersquare.herokuapp.com/",
-            "Access-Control-Allow-Methods": "POST, GET, PUT, DELETE "
-        });
         res.json(userFriends);
     })
 });
 
 //delete friends
-router.post("/deletefriends", (req, res) => {
+router.options("/deletefriends", cors(corsOptions));
+router.post("/deletefriends",cors(corsOptions), (req, res) => {
     const { user_id, friend_id } = req.body;
     const userFriends = [];
     knex("user_friend")
@@ -143,17 +124,14 @@ router.post("/deletefriends", (req, res) => {
                 })
             )
         }).then(() => {
-            res.set({
-                "Access-Control-Allow-Origin": "https://chattersquare.herokuapp.com/",
-                "Access-Control-Allow-Methods": "POST, GET, PUT, DELETE "
-            });
             res.json(userFriends);
         })
     })
 });
 
 //add friends
-router.post("/addfriends", (req, res) => {
+router.options("/addfriends", cors(corsOptions));
+router.post("/addfriends", cors(corsOptions), (req, res) => {
     const { friend_id, user_id } = req.body;
     const userFriends = [];
     knex("user_friend")
@@ -169,17 +147,14 @@ router.post("/addfriends", (req, res) => {
                 })
             )   
         }).then(() => {
-            res.set({
-                "Access-Control-Allow-Origin": "https://chattersquare.herokuapp.com/",
-                "Access-Control-Allow-Methods": "POST, GET, PUT, DELETE "
-            });
             res.json(userFriends);
         })
     })
 })
 
 //get user's rooms
-router.get("/getrooms/:user_id", (req, res) => {
+router.options("/getrooms/:user_id", cors(corsOptions));
+router.get("/getrooms/:user_id", cors(corsOptions), (req, res) => {
     const id = req.params.user_id;
     let userRooms = [];
     knex("room_user").select().where("user_id", id).then((rooms) => {
@@ -192,16 +167,13 @@ router.get("/getrooms/:user_id", (req, res) => {
             })        
         )
     }).then(() => {
-        res.set({
-            "Access-Control-Allow-Origin": "https://chattersquare.herokuapp.com/",
-            "Access-Control-Allow-Methods": "POST, GET, PUT, DELETE "
-        });
         res.json(userRooms);
     })
 });
 
 //join a new chatroom
-router.post("/joinroom", (req, res) => {
+router.options("/getrooms/:user_id", cors(corsOptions));
+router.post("/getrooms/:user_id", cors(corsOptions),(req, res) => {
     const { user_id } = req.body;
     let userRooms = [];
     knex("room_user")
@@ -218,16 +190,13 @@ router.post("/joinroom", (req, res) => {
             )
         })
     }).then(() => {
-        res.set({
-            "Access-Control-Allow-Origin": "https://chattersquare.herokuapp.com/",
-            "Access-Control-Allow-Methods": "POST, GET, PUT, DELETE "
-        });
         res.json(userRooms);
     })
 });
 
 //remove a chatroom
-router.post("/removeroom", (req, res) => {
+router.options("/removeroom", cors(corsOptions));
+router.post("/removeroom",cors(corsOptions), (req, res) => {
     const { user_id, room_id } = req.body;
     const userRooms = [];
     knex("room_user")
@@ -248,10 +217,6 @@ router.post("/removeroom", (req, res) => {
                 })
             );
         }).then(() => {
-            res.set({
-                "Access-Control-Allow-Origin": "https://chattersquare.herokuapp.com/",
-                "Access-Control-Allow-Methods": "POST, GET, PUT, DELETE "
-            });
             res.json(userRooms);
         })
     })
