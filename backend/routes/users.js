@@ -9,14 +9,15 @@ const corsOptions = {
     optionSuccessStatus: 200
 };
 
-router.get('/', (req, res) => {
+router.options("/signin", cors(corsOptions));
+router.get('/', cors(corsOptions), (req, res) => {
     knex("users").select().then((users) => {
         res.json(users);
     });
 });
 
 //sign in
-// router.options("/signin", cors(corsOptions));
+router.options("/signin", cors(corsOptions));
 router.post('/signin', cors(corsOptions), (req, res) => {
     knex("users")
     .select()
@@ -39,7 +40,7 @@ router.post("/signup", cors(corsOptions), (req, res) => {
 });
 
 //retrieve user's info
-// router.options("/retrieveuser/:user_id", cors(corsOptions));
+router.options("/retrieveuser/:user_id", cors(corsOptions));
 router.get("/retrieveuser/:user_id", cors(corsOptions), (req, res) => {
     const id = req.params.user_id;
     knex("users").select().where("id", id).then(user => {
@@ -83,7 +84,7 @@ router.post("/updateuserinfo", cors(corsOptions), (req, res) => {
 });
 
 //get user's friends list
-// router.options("/getfriends/:user_id", cors(corsOptions));
+router.options("/getfriends/:user_id", cors(corsOptions));
 router.get("/getfriends/:user_id", cors(corsOptions), (req, res) => {
     const id = req.params.user_id;
     const userFriends = [];
@@ -102,7 +103,7 @@ router.get("/getfriends/:user_id", cors(corsOptions), (req, res) => {
 });
 
 //delete friends
-// router.options("/deletefriends", cors(corsOptions));
+router.options("/deletefriends", cors(corsOptions));
 router.post("/deletefriends",cors(corsOptions), (req, res) => {
     const { user_id, friend_id } = req.body;
     const userFriends = [];
@@ -130,7 +131,7 @@ router.post("/deletefriends",cors(corsOptions), (req, res) => {
 });
 
 //add friends
-// router.options("/addfriends", cors(corsOptions));
+router.options("/addfriends", cors(corsOptions));
 router.post("/addfriends", cors(corsOptions), (req, res) => {
     const { friend_id, user_id } = req.body;
     const userFriends = [];
@@ -153,7 +154,7 @@ router.post("/addfriends", cors(corsOptions), (req, res) => {
 })
 
 //get user's rooms
-// router.options("/getrooms/:user_id", cors(corsOptions));
+router.options("/getrooms/:user_id", cors(corsOptions));
 router.get("/getrooms/:user_id", cors(corsOptions), (req, res) => {
     const id = req.params.user_id;
     let userRooms = [];
@@ -195,7 +196,7 @@ router.post("/joinroom", cors(corsOptions),(req, res) => {
 });
 
 //remove a chatroom
-// router.options("/removeroom", cors(corsOptions));
+router.options("/removeroom", cors(corsOptions));
 router.post("/removeroom",cors(corsOptions), (req, res) => {
     const { user_id, room_id } = req.body;
     const userRooms = [];
