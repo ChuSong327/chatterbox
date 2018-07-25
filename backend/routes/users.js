@@ -21,7 +21,7 @@ router.post('/signin', (req, res) => {
     .orWhere("email", req.body.usernameEmail)
     .then((user) => {
         res.set({
-            "Access-Control-Allow-Origin": "https://chattersquare.herokuapp.com",
+            "Access-Control-Allow-Origin": "*",
             "Access-Control-Allow-Methods": "POST, GET, PUT, DELETE, OPTIONS "
         });
         res.json(user);
