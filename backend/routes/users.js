@@ -7,9 +7,8 @@ router.get('/', (req, res) => {
     knex("users").select().then((users) => {
         res.set({
             "Access-Control-Allow-Origin": "https://chattersquare.herokuapp.com/",
-            "Access-Control-Allow-Methods": "POST, GET, PUT, DELETE "
+            "Access-Control-Allow-Methods": "POST, GET, PUT, DELETE, OPTIONS "
         });
-        console.log("res header: ", res)
         res.json(users);
     });
 });
