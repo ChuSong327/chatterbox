@@ -7,7 +7,7 @@ let router = express.Router();
 router.get("/", (req, res) => {
     knex("rooms").select().then((rooms) => {
         res.set({
-            "Access-Control-Allow-Origin": "https://chattersquarebackend.herokuapp.com/",
+            "Access-Control-Allow-Origin": "https://chattersquare.herokuapp.com/",
             "Access-Control-Allow-Methods": "POST, GET, PUT, DELETE "
         });
         res.json(rooms);
@@ -19,7 +19,7 @@ router.get("/getcurrentroom/:room_id", (req, res) => {
     const { room_id } = req.params;
     knex("rooms").select().where("id", room_id).then((room) => {
         res.set({
-            "Access-Control-Allow-Origin": "https://chattersquarebackend.herokuapp.com/",
+            "Access-Control-Allow-Origin": "https://chattersquare.herokuapp.com/",
             "Access-Control-Allow-Methods": "POST, GET, PUT, DELETE "
         });
         res.json(room);
@@ -41,7 +41,7 @@ router.get("/getroommessages/:room_id", (req, res) => {
         )
     }).then(() => {
         res.set({
-            "Access-Control-Allow-Origin": "https://chattersquarebackend.herokuapp.com/",
+            "Access-Control-Allow-Origin": "https://chattersquare.herokuapp.com/",
             "Access-Control-Allow-Methods": "POST, GET, PUT, DELETE "
         });
         res.json(response);
@@ -64,7 +64,7 @@ router.post("/postroommessages", (req, res) => {
             );
         }).then(() => {
             res.set({
-                "Access-Control-Allow-Origin": "https://chattersquarebackend.herokuapp.com/",
+                "Access-Control-Allow-Origin": "https://chattersquare.herokuapp.com/",
                 "Access-Control-Allow-Methods": "POST, GET, PUT, DELETE "
             });
             res.json(response);
@@ -86,7 +86,7 @@ router.get("/getroomusers/:room_id", (req, res) => {
         )
     }).then(() => {
         res.set({
-            "Access-Control-Allow-Origin": "https://chattersquarebackend.herokuapp.com/",
+            "Access-Control-Allow-Origin": "https://chattersquare.herokuapp.com/",
             "Access-Control-Allow-Methods": "POST, GET, PUT, DELETE "
         });
         res.json(response);
@@ -97,7 +97,7 @@ router.get("/getroomusers/:room_id", (req, res) => {
 router.get("/getallrooms", (req, res) => {
    knex("rooms").select("*").then(rooms => {
     res.set({
-        "Access-Control-Allow-Origin": "https://chattersquarebackend.herokuapp.com/",
+        "Access-Control-Allow-Origin": "https://chattersquare.herokuapp.com/",
         "Access-Control-Allow-Methods": "POST, GET, PUT, DELETE "
     });
        res.json(rooms);
