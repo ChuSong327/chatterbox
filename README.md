@@ -32,6 +32,6 @@ The app's front-end and back-end are deployed separately to Heroku. Due to Same 
 * JavaScript
 
 ### Furthur Info About the App
-* To sign in the app, enter any combination of user and number from 0 to 99, such as user32, no password is required for now. 
+* To sign in the app, enter any combination of user and number from 0 to 99, such as user32; no password is required for now. 
 * Sign up feature will post the entered data into the database, so be cautious with what is entered.
-* The app is still in development, therefore, features such as user login authentication and direct message features are not available yet. 
+* The app is still in development, therefore, features such as user login authentication and direct message are not available yet. 
