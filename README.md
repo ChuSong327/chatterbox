@@ -23,6 +23,12 @@ npm start
 The app's front-end and back-end are deployed separately to Heroku. 
 Due to Same Origin Policy, CORS is required to enable the front-end server to get access to the backend server, which is integrated in the project already.
 
+### Furthur Info About the App
+* To sign in the app, enter any combination of "user" and a number from 0 to 99, such as user32; no password is required for now. Or click Demo button to autofil the username and then sign in.
+* Sign up feature will post the entered data into the database, so be cautious with what is entered.
+* When sign in/sign up the app for the first time, it may take a few seconds for it to respond becuase Heroku puts the app's backend to sleep after 30mins of inactivity.
+* The app is still in development, therefore, features such as user login authentication and direct message are not available yet. 
+
 ### Tech Stack
 * React 
 * React-Router
@@ -31,8 +37,3 @@ Due to Same Origin Policy, CORS is required to enable the front-end server to ge
 * PostgreSQL
 * KnexJS
 * JavaScript
-
-### Furthur Info About the App
-* To sign in the app, enter any combination of user and number from 0 to 99, such as user32; no password is required for now. 
-* Sign up feature will post the entered data into the database, so be cautious with what is entered.
-* The app is still in development, therefore, features such as user login authentication and direct message are not available yet. 
