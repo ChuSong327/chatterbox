@@ -20,7 +20,8 @@ For backend:
 npm start
 ```
 ### Deployment
-The app's front-end and back-end are deployed separately to Heroku(only backend files are displayed on Github). Due to Same Origin Policy, CORS is required to enable the front-end server to get access to the backend server. 
+The app's front-end and back-end are deployed separately to Heroku. 
+Due to Same Origin Policy, CORS is required to enable the front-end server to get access to the backend server, which is integrated in the project already.
 
 ### Tech Stack
 * React 
