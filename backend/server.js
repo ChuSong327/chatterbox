@@ -4,8 +4,15 @@ const path = require("path");
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const express = require("express");
-
+const cors = require("cors");
 const app = express();
+
+const corsOptions = {
+  origin: "https://chattersquare.herokuapp.com",
+  optionSuccessStatus: 200
+};
+app.options("*", cors(corsOptions));
+app.use(cors());
 
 //Use middleware
 app.use(express.json());
@@ -29,6 +36,8 @@ app.use("/api/messages", messagesRouter);
 app.use(function(req, res, next) {
   next(createError(404));
 });
+
+
 
 // error handler
 app.use(function(err, req, res) {
