@@ -5,7 +5,7 @@ const knex = require("../../db/knex");
 let router = express.Router();
 
 const corsOptions = {
-    origin: "https://chattersquare.herokuapp.com/",
+    origin: "https://chattersquare.herokuapp.com",
     optionSuccessStatus: 200
   };
 
