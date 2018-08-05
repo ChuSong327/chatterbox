@@ -1,4 +1,3 @@
-require("newrelic");
 const createError = require("http-errors");
 const path = require("path");
 const bodyParser = require("body-parser");
