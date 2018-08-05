@@ -20,6 +20,7 @@ router.get('/', cors(corsOptions), (req, res) => {
 //sign in
 router.options("/signin", cors(corsOptions));
 router.post("/signin", cors(corsOptions), (req, res) => {
+    console.log("GET HERE!!!")
     knex("users")
     .select()
     .where("username", req.body.username)
