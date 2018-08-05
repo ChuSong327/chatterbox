@@ -4,13 +4,13 @@ const knex = require("../../db/knex");
 
 let router = express.Router();
 
-// const = {
-//     origin: "https://chattersquare.herokuapp.com",
-//     optionSuccessStatus: 200
-// };
+const corsOptions = {
+    origin: "https://chattersquare.herokuapp.com/",
+    optionSuccessStatus: 200
+  };
 
-// router.use(cors());
-// router.options("/", cors();
+
+router.options("/", cors(corsOptions));
 router.get('/',  (req, res) => {
     knex("users").select().then((users) => {
         res.json(users);
@@ -18,8 +18,8 @@ router.get('/',  (req, res) => {
 });
 
 //sign in
-// router.options("/signin", cors();
-router.post('/signin',  (req, res) => {
+router.options("/signin", cors(corsOptions));
+router.post("/signin",  (req, res) => {
     knex("users")
     .select()
     .where("username", req.body.username)
