@@ -40,8 +40,8 @@ router.post("/signup",cors(corsOptions), (req, res) => {
 });
 
 //retrieve user's info
-// router.options("/retrieveuser/:user_id", cors();
-router.get("/retrieveuser/:user_id",  (req, res) => {
+router.options("/retrieveuser/:user_id", cors(corsOptions));
+router.get("/retrieveuser/:user_id", cors(corsOptions), (req, res) => {
     const id = req.params.user_id;
     knex("users").select().where("id", id).then(user => {
         res.json(user);
@@ -49,8 +49,8 @@ router.get("/retrieveuser/:user_id",  (req, res) => {
 });
 
 //update user's information
-// router.options("/updateuserinfo", cors();
-router.post("/updateuserinfo",  (req, res) => {
+router.options("/updateuserinfo", cors(corsOptions));
+router.post("/updateuserinfo", cors(corsOptions), (req, res) => {
     const { 
         id, 
         username, 
@@ -84,8 +84,8 @@ router.post("/updateuserinfo",  (req, res) => {
 });
 
 //get user's friends list
-// router.options("/getfriends/:user_id", cors();
-router.get("/getfriends/:user_id",  (req, res) => {
+router.options("/getfriends/:user_id", cors(corsOptions));
+router.get("/getfriends/:user_id", cors(corsOptions), (req, res) => {
     const id = req.params.user_id;
     const userFriends = [];
     knex("user_friend").select().where("user_id", id).then((friends) => {
@@ -103,8 +103,8 @@ router.get("/getfriends/:user_id",  (req, res) => {
 });
 
 //delete friends
-// router.options("/deletefriends", cors();
-router.post("/deletefriends", (req, res) => {
+router.options("/deletefriends", cors(corsOptions));
+router.post("/deletefriends",cors(corsOptions), (req, res) => {
     const { user_id, friend_id } = req.body;
     const userFriends = [];
     knex("user_friend")
@@ -131,8 +131,8 @@ router.post("/deletefriends", (req, res) => {
 });
 
 //add friends
-// router.options("/addfriends", cors();
-router.post("/addfriends",  (req, res) => {
+router.options("/addfriends", cors(corsOptions));
+router.post("/addfriends", cors(corsOptions), (req, res) => {
     const { friend_id, user_id } = req.body;
     const userFriends = [];
     knex("user_friend")
@@ -154,8 +154,8 @@ router.post("/addfriends",  (req, res) => {
 })
 
 //get user's rooms
-// router.options("/getrooms/:user_id", cors();
-router.get("/getrooms/:user_id",  (req, res) => {
+router.options("/getrooms/:user_id", cors(corsOptions));
+router.get("/getrooms/:user_id",cors(corsOptions),  (req, res) => {
     const id = req.params.user_id;
     let userRooms = [];
     knex("room_user").select().where("user_id", id).then((rooms) => {
@@ -173,8 +173,8 @@ router.get("/getrooms/:user_id",  (req, res) => {
 });
 
 //join a new chatroom
-// router.options("/joinroom", cors();
-router.post("/joinroom", (req, res) => {
+router.options("/joinroom", cors(corsOptions));
+router.post("/joinroom", cors(corsOptions),(req, res) => {
     const { user_id } = req.body;
     let userRooms = [];
     knex("room_user")
@@ -196,8 +196,8 @@ router.post("/joinroom", (req, res) => {
 });
 
 //remove a chatroom
-// router.options("/removeroom", cors();
-router.post("/removeroom", (req, res) => {
+router.options("/removeroom", cors(corsOptions));
+router.post("/removeroom", cors(corsOptions), (req, res) => {
     const { user_id, room_id } = req.body;
     const userRooms = [];
     knex("room_user")
