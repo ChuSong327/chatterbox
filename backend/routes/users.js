@@ -11,7 +11,7 @@ const corsOptions = {
 
 
 router.options("/", cors(corsOptions));
-router.get('/',  (req, res) => {
+router.get('/', cors(corsOptions), (req, res) => {
     knex("users").select().then((users) => {
         res.json(users);
     });
@@ -19,7 +19,7 @@ router.get('/',  (req, res) => {
 
 //sign in
 router.options("/signin", cors(corsOptions));
-router.post("/signin",  (req, res) => {
+router.post("/signin", cors(corsOptions), (req, res) => {
     knex("users")
     .select()
     .where("username", req.body.username)
@@ -29,8 +29,8 @@ router.post("/signin",  (req, res) => {
 });
 
 //sign up
-// router.options("/signup", cors();
-router.post("/signup",  (req, res) => {
+router.options("/signup", cors(corsOptions));
+router.post("/signup",cors(corsOptions), (req, res) => {
     knex("users").insert(req.body)
     .then(() => {
         knex("users").select().where("username", req.body.username).then((user) => {
