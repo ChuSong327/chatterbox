@@ -19,11 +19,13 @@ router.get('/', cors(corsOptions), (req, res) => {
 //sign in
 router.options("/signin", cors(corsOptions));
 router.post('/signin', cors(corsOptions), (req, res) => {
+    // console.log("this is the request body:", req.body)
     knex("users")
     .select()
-    .where("username", req.body.usernameEmail)
-    .orWhere("email", req.body.usernameEmail)
+    .where("username", req.body.username)
     .then((user) => {
+        // console.log("get here")
+        // console.log("this is the user: ", user)
         res.json(user);
     });
 });
