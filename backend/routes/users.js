@@ -9,7 +9,7 @@ const corsOptions = {
     optionSuccessStatus: 200
 };
 
-router.options("/signin", cors(corsOptions));
+router.options("/", cors(corsOptions));
 router.get('/', cors(corsOptions), (req, res) => {
     knex("users").select().then((users) => {
         res.json(users);
@@ -19,13 +19,10 @@ router.get('/', cors(corsOptions), (req, res) => {
 //sign in
 router.options("/signin", cors(corsOptions));
 router.post('/signin', cors(corsOptions), (req, res) => {
-    // console.log("this is the request body:", req.body)
     knex("users")
     .select()
     .where("username", req.body.username)
     .then((user) => {
-        // console.log("get here")
-        // console.log("this is the user: ", user)
         res.json(user);
     });
 });
