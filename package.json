@@ -16,7 +16,7 @@
   "bugs": {
     "url": "https://github.com/ChuSong327/chatterbox/issues"
   },
-  "homepage": "https://github.com/ChuSong327/chatterbox#readme",
+  "homepage": "https://github.com/ChuSo g327/chatterbox#readme",
   "dependencies": {
     "body-parser": "^1.18.3",
     "cookie-parser": "^1.4.3",
@@ -25,6 +25,7 @@
     "faker": "^4.1.0",
     "http-errors": "^1.6.3",
     "knex": "^0.14.6",
+    "newrelic": "^4.7.0",
     "pg": "^7.4.3",
     "react-phone-input-auto-format": "0.0.6"
   }
