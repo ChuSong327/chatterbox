@@ -1,4 +1,5 @@
 /node_modules
 
+#new relic file
 /newrelic.js
 
