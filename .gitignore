@@ -3,3 +3,5 @@
 #new relic file
 /newrelic.js
 
+/newrelic_agent.log
+
